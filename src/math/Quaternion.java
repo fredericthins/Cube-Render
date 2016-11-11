@@ -189,4 +189,13 @@ public class Quaternion {
 		
 		return quat1.w*quat2.w+quat1.x*quat2.x+quat1.y*quat2.y+quat1.z*quat2.z;
 	}
+	
+	/** @return W dimension*/
+	public float getW() {return w;}
+/** @return X dimension */
+	public float getX() {return x;}
+/** @return Y dimension*/
+	public float getY() {return y;}
+/** @return Z dimension*/
+	public float getZ() {return z;}
 }
