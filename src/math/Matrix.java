@@ -88,6 +88,24 @@ public class Matrix {
 	}
 	
 	/**
+	 * Transposes this matrix, meaning that rows and columns are swapped.
+	 * 
+	 * @return the transpose of this matrix
+	 */
+	public Matrix transpose() {
+		//the transpose set
+		float[][] set = new float[this.getNumColumns()][this.getNumRows()];
+		
+		//iterate through each element of the matrix, and set the respective element of the transpose set
+		for(int i = 0; i < this.getNumRows(); i++) {
+			for(int j = 0; j < this.getNumColumns(); j++) {
+				set[j][i] = this.getValue(i, j);
+			}
+		}
+		return new Matrix(set);
+	}
+	
+	/**
 	 * Gets the order of the matrix.
 	 * 
 	 * @return the order of the matrix(rows by columns)

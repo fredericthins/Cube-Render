@@ -8,12 +8,12 @@ public class MatrixS extends Matrix {
 		super(set);
 	}
 	
-	public MatrixS(float[][] set, int order) {
+	public MatrixS(float[][] set, int order) throws Exception {
 		super(set);
 		if(set.length != order || set[0].length != order) {
 			System.err.println("Specified set is not a " + order + " by " + order + " matrix!");
+			throw new Exception();
 		}
-		
 	}
 	
 }
