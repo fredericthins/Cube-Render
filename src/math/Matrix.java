@@ -14,11 +14,11 @@ public class Matrix {
 	}
 	
 	/**
-	 * Multiplies the first matrix by the second.
+	 * Checks to see if the two matrices have the same order
 	 * 
 	 * @param a the first matrix
 	 * @param b the second matrix
-	 * @return the matrix that is the product of the two
+	 * @return whether or not the two matrices have the same order
 	 */
 	public static boolean sameOrder(Matrix a, Matrix b) {
 		if(a.getOrder().equals(b.getOrder())) {
