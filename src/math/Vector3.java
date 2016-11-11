@@ -3,11 +3,11 @@ public class Vector3{
 	float x; 
 	float y;
 	float z;
-//	public Vector3(Matrix m){    //Vector3 constructor using a Matrix
-//		this.x = m[0];
-//		this.y = m[1];
-//		this.z = m[2];
-//	}
+	public Vector3(Matrix m){    //Vector3 constructor using a Matrix
+		this.x = m.getValue(0,0);
+		this.y = m.getValue(0,1);
+		this.z = m.getValue(0,2);
+	}
 	public Vector3(float x, float y, float z){ //Vector3 constructor using three float coordinates
 		this.x = x;
 		this.y = y;
@@ -22,7 +22,7 @@ public class Vector3{
 		return ans;
 	}
 	public float getMagn(){//Gets magnitude of the vector
-		return sqrt(pow(getX(),2) + pow((getX()),2) + pow(getX(),2));
+		return (float) Math.sqrt(Math.pow(getX(),2) + Math.pow((getY()),2) + Math.pow(getZ(),2));
 	}
 	public Vector3 scale(float scalar){//Scale a vector
 		this.setX(getX()*scalar);
@@ -31,7 +31,7 @@ public class Vector3{
 		return this;
 	}
 	public Vector3 normalize(){
-		return scale(1/abs(getMagn()));
+		return scale(1/Math.abs(getMagn()));
 	}
 //	public Matrix homogeneous(){
 //		return Matrix;
