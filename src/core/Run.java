@@ -5,8 +5,8 @@ import graphics.Window;
 
 public class Run {
 	
-	public static Screen screen;//where drawing is done
-	public static Window window;//jframe containing screen
+	public static Screen screen = new Screen();//where drawing is done
+	public static Window window = new Window(screen);//jframe containing screen
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
