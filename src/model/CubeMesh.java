@@ -40,12 +40,18 @@ public class CubeMesh extends Mesh{
 		};
 		
 		this.normal = new Vector3[] {
-			new Vector3(0,0,1),	//front
-			new Vector3(1,0,0), //right
-			new Vector3(0,1,0), //top
-			new Vector3(-1,0,0), //left
-			new Vector3(0,-1,0), //bottom
-			new Vector3(0,0,-1)	//back
+			new Vector3(0,0,1),	//Front, left
+			new Vector3(0,0,1),	//Front, right
+			new Vector3(1,0,0), //Right, right
+			new Vector3(1,0,0), //Right, left
+			new Vector3(0,1,0), //Top, right
+			new Vector3(0,1,0), //Top, left
+			new Vector3(-1,0,0), //Left, right
+			new Vector3(-1,0,0), //Left, left
+			new Vector3(0,-1,0), //Bottom, right
+			new Vector3(0,-1,0), //Bottom, left
+			new Vector3(0,0,-1), //Back, left
+			new Vector3(0,0,-1)	//Back, right
 		};
 	}
 }
