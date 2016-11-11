@@ -21,7 +21,7 @@ public class Matrix {
 	 * @return whether or not the two matrices have the same order
 	 */
 	public static boolean sameOrder(Matrix a, Matrix b) {
-		if(a.getOrder().equals(b.getOrder())) {
+		if(a.getOrder()[0] == b.getOrder()[0] && a.getOrder()[1] == b.getOrder()[1]) {
 			return true;
 		} else return false;
 	}
@@ -36,18 +36,19 @@ public class Matrix {
 	public static Matrix add(Matrix a, Matrix b) {
 		//the set that is the sum
 		float[][] set = new float[a.getNumRows()][a.getNumColumns()];
-		try {
-			//iterate through each row
-			for(int row = 0; row < a.getNumRows(); row++) {
-				//iterate through each column
-				for(int column = 0; column < a.getNumColumns(); column++) {
-					//sum the elements of each matrix at that location
-					set[row][column] = a.getValue(row, column) + b.getValue(row, column);
-				}
+		
+		if(!Matrix.sameOrder(a, b)) {
+			System.err.println("Order mismatch, cannot add.");
+			return null;
+		} 
+		
+		//iterate through each row
+		for(int row = 0; row < a.getNumRows(); row++) {
+			//iterate through each column
+			for(int column = 0; column < a.getNumColumns(); column++) {
+				//sum the elements of each matrix at that location
+				set[row][column] = a.getValue(row, column) + b.getValue(row, column);
 			}
-		} catch(ArrayIndexOutOfBoundsException e) {
-			e.printStackTrace();
-			System.err.println("Cannot add these two matrices, order mismatch");
 		}
 		return new Matrix(set);
 	}
@@ -63,28 +64,42 @@ public class Matrix {
 		//the set that is the product
 		float[][] set = new float[a.getNumRows()][b.getNumColumns()];
 		
-		try {
-			//iterate through the rows of the first matrix
-			for(int matrix1row = 0; matrix1row < a.getNumRows(); matrix1row++) {
-				//iterate through the columns of the second matrix
-				for(int matrix2column = 0; matrix2column < b.getNumColumns(); matrix2column++) {
-					//sum begins at 0
-					float sum = 0;
-					
-					//multiply the respective elements of each array by each other and add them together
-					for(int iterator = 0; iterator < b.getNumColumns(); iterator++) {
-						sum = sum + a.getValue(matrix1row, iterator)*b.getValue(iterator, matrix2column);
-					}
-					
-					//set the desired element of the array to the obtained value
-					set[matrix1row][matrix2column] = sum;
-				}
-			}
-		} catch(ArrayIndexOutOfBoundsException e) {
-			e.printStackTrace();
-			System.err.println("Cannot multiply these two matrices, order mismatch");
+		if(a.getNumColumns() != b.getNumRows()) {
+			System.err.println("Order mismatch, cannot multiply");
+			return null;
 		}
+		
+		//iterate through the rows of the first matrix
+		for(int matrix1row = 0; matrix1row < a.getNumRows(); matrix1row++) {
+			//iterate through the columns of the second matrix
+			for(int matrix2column = 0; matrix2column < b.getNumColumns(); matrix2column++) {
+				//sum begins at 0
+				float sum = 0;
+				
+				//multiply the respective elements of each array by each other and add them together
+				for(int iterator = 0; iterator < a.getNumColumns(); iterator++) {
+					sum = sum + a.getValue(matrix1row, iterator)*b.getValue(iterator, matrix2column);
+				}
+				
+				//set the desired element of the array to the obtained value
+				set[matrix1row][matrix2column] = sum;
+			}
+		}
+			
 		return new Matrix(set);
+	}
+	
+	/**
+	 * Converts this Matrix, if a sqaure, to a MatrixS
+	 * 
+	 * @return this Matrix as a MatrixS
+	 */
+	public MatrixS toSquare() {
+		if(this.getNumRows() != this.getNumColumns()) {
+			System.err.println("Not a square matrix!");
+		}
+		
+		return new MatrixS(set);
 	}
 	
 	/**
@@ -165,9 +180,17 @@ public class Matrix {
 	
 	@Override
 	/**
-	 * Returns a string specifying the number of rows and columns of this matrix
+	 * Returns the matrix in string form
 	 */
 	public String toString() {
-		return set.length + "rows by " + set[0].length + "columns";
+		String string = "{";
+		for(int i = 0; i < this.getNumRows(); i++) {
+			string = string + "\n";
+			for(int j = 0; j < this.getNumColumns(); j++) {
+				string = string + this.getValue(i, j) + " ";
+			}
+		}
+		string = string + "\n" + "}";
+		return string;
 	}
 }
