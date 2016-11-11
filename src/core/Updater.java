@@ -3,6 +3,9 @@ package core;
 public class Updater implements Runnable{
 
 	@Override
+	/**
+	 * Update the program at 60 fps
+	 */
 	public void run() {
 		// TODO Auto-generated method stub
 		try{

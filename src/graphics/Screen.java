@@ -15,6 +15,9 @@ public class Screen extends JComponent{
 		
 	}
 	
+	/**
+	 *  Update the screen
+	 */
 	public void update(){
 		repaint();
 	}
