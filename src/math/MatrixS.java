@@ -2,6 +2,7 @@ package math;
 
 public class MatrixS extends Matrix {
 	private float[][] set;
+	private int order;
 	
 	public MatrixS(float[][] set) {
 		super(set);

@@ -36,14 +36,18 @@ public class Matrix {
 	public static Matrix add(Matrix a, Matrix b) {
 		//the set that is the sum
 		float[][] set = new float[a.getNumRows()][a.getNumColumns()];
-		
-		//iterate through each row
-		for(int row = 0; row < a.getNumRows(); row++) {
-			//iterate through each column
-			for(int column = 0; column < a.getNumColumns(); column++) {
-				//sum the elements of each matrix at that location
-				set[row][column] = a.getValue(row, column) + b.getValue(row, column);
+		try {
+			//iterate through each row
+			for(int row = 0; row < a.getNumRows(); row++) {
+				//iterate through each column
+				for(int column = 0; column < a.getNumColumns(); column++) {
+					//sum the elements of each matrix at that location
+					set[row][column] = a.getValue(row, column) + b.getValue(row, column);
+				}
 			}
+		} catch(ArrayIndexOutOfBoundsException e) {
+			e.printStackTrace();
+			System.err.println("Cannot add these two matrices, order mismatch");
 		}
 		return new Matrix(set);
 	}
@@ -59,21 +63,26 @@ public class Matrix {
 		//the set that is the product
 		float[][] set = new float[a.getNumRows()][b.getNumColumns()];
 		
-		//iterate through the rows of the first matrix
-		for(int matrix1row = 0; matrix1row < a.getNumRows(); matrix1row++) {
-			//iterate through the columns of the second matrix
-			for(int matrix2column = 0; matrix2column < b.getNumColumns(); matrix2column++) {
-				//sum begins at 0
-				float sum = 0;
-				
-				//multiply the respective elements of each array by each other and add them together
-				for(int iterator = 0; iterator < b.getNumColumns(); iterator++) {
-					sum = sum + a.getValue(matrix1row, iterator)*b.getValue(iterator, matrix2column);
+		try {
+			//iterate through the rows of the first matrix
+			for(int matrix1row = 0; matrix1row < a.getNumRows(); matrix1row++) {
+				//iterate through the columns of the second matrix
+				for(int matrix2column = 0; matrix2column < b.getNumColumns(); matrix2column++) {
+					//sum begins at 0
+					float sum = 0;
+					
+					//multiply the respective elements of each array by each other and add them together
+					for(int iterator = 0; iterator < b.getNumColumns(); iterator++) {
+						sum = sum + a.getValue(matrix1row, iterator)*b.getValue(iterator, matrix2column);
+					}
+					
+					//set the desired element of the array to the obtained value
+					set[matrix1row][matrix2column] = sum;
 				}
-				
-				//set the desired element of the array to the obtained value
-				set[matrix1row][matrix2column] = sum;
 			}
+		} catch(ArrayIndexOutOfBoundsException e) {
+			e.printStackTrace();
+			System.err.println("Cannot multiply these two matrices, order mismatch");
 		}
 		return new Matrix(set);
 	}
@@ -83,8 +92,8 @@ public class Matrix {
 	 * 
 	 * @return the order of the matrix(rows by columns)
 	 */
-	public int[][] getOrder() {
-		return new int[this.getNumRows()][this.getNumColumns()];
+	public int[] getOrder() {
+		return new int[] {this.getNumRows(), this.getNumColumns()};
 	}
 	
 	/**
