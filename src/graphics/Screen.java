@@ -15,4 +15,7 @@ public class Screen extends JComponent{
 		
 	}
 	
+	public void update(){
+		repaint();
+	}
 }

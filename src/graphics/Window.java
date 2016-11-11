@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 
 public class Window extends JFrame{
 	
-	JComponent screen;
+	Screen screen;
 	
 	/**
 	 * initialize the window with certain parameter
@@ -21,7 +21,7 @@ public class Window extends JFrame{
 		
 	}
 	
-	public Window(JComponent screen){
+	public Window(Screen screen){
 		init();
 		this.screen = screen;
 		this.add(this.screen, BorderLayout.CENTER);
@@ -30,6 +30,6 @@ public class Window extends JFrame{
 	
 	}
 	public void Update(){
-		
+		screen.update();
 	}
 }

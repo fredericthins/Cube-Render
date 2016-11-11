@@ -10,7 +10,11 @@ public class Run {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		Thread t = new Thread(new Updater());
+		t.start();
 	}
-
+	
+	public static void update(){
+		window.Update();
+	}
 }
