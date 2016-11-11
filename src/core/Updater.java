@@ -11,7 +11,7 @@ public class Updater implements Runnable{
 		try{
 			while(true){
 				Thread.sleep(16);
-				Run.window.Update();
+				Run.update();
 			}
 		}catch(InterruptedException ex){
 			System.out.println("Something went wrong: update thread interrupted");
