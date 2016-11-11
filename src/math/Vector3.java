@@ -4,9 +4,10 @@ public class Vector3{
 	float y;
 	float z;
 	public Vector3(Matrix m){    //Vector3 constructor using a Matrix
-		this.x = m.getValue(0,0);
-		this.y = m.getValue(0,1);
-		this.z = m.getValue(0,2);
+		float lastValue = m.getValue(0, 3);
+		this.x = m.getValue(0,0) / lastValue;
+		this.y = m.getValue(0,1) / lastValue;
+		this.z = m.getValue(0,2) / lastValue;
 	}
 	public Vector3(float x, float y, float z){ //Vector3 constructor using three float coordinates
 		this.x = x;
@@ -33,9 +34,11 @@ public class Vector3{
 	public Vector3 normalize(){
 		return scale(1/Math.abs(getMagn()));
 	}
-//	public Matrix homogeneous(){
-//		return Matrix;
-//	}
+	public Matrix homogeneous(){
+		float[][] tempMatrix = {{this.getX()},{this.getY()},{this.getZ()}};
+		Matrix homoVec = new Matrix(tempMatrix);
+		return homoVec;
+	}
 //	public Vector3 rotate(Quaterion){
 //		return 
 //	}
@@ -68,6 +71,8 @@ public static Vector3 cross(Vector3 v1, Vector3 v2){
 	Vector3 newVector = new Vector3(v1.getY()*v2.getZ() - v1.getZ()*v2.getY(),v1.getZ()*v2.getX() - v1.getX()*v2.getZ(),v1.getX()*v2.getY() - v1.getY()*v2.getX());
 	return newVector;
 }
-//public static Vector3 Project(Vector3 v1, Vector3 v2){	
-//}
+public static Vector3 Project(Vector3 v1, Vector3 v2){	//v2 is being projected onto v1
+	Vector3 projection = v1.scale(Dot(v1,v2)/v1.getMagn());
+	return projection;
+}
 }
