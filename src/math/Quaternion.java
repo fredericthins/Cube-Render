@@ -39,10 +39,10 @@ public class Quaternion {
 	 * @param mat
 	 */
 	public Quaternion(Matrix mat){
-		this.w = mat.getValue(1, 1);
-		this.x = mat.getValue(2, 1);
-		this.y = mat.getValue(3, 1);
-		this.z = mat.getValue(4, 1);
+		this.w = mat.getValue(0, 0);
+		this.x = mat.getValue(1, 0);
+		this.y = mat.getValue(2, 0);
+		this.z = mat.getValue(3, 0);
 	}
 	
 	/*
@@ -133,7 +133,7 @@ public class Quaternion {
 			{w, -x, -y, -z},
 			{x, w, z, -y},
 			{y, -z, w, x},
-			{z, -y, -x, w}
+			{z, y, -x, w}
 			
 		}, 4);
 	}
@@ -192,10 +192,19 @@ public class Quaternion {
 	
 	/** @return W dimension*/
 	public float getW() {return w;}
-/** @return X dimension */
+	/** @return X dimension */
 	public float getX() {return x;}
-/** @return Y dimension*/
+	/** @return Y dimension*/
 	public float getY() {return y;}
-/** @return Z dimension*/
+	/** @return Z dimension*/
 	public float getZ() {return z;}
+
+	/**@param w new w value*/
+	public void setW(float w) {this.w = w;}
+	/**@param x new y value*/
+	public void setX(float x) {this.x = x;}
+	/**@param y new x value*/
+	public void setY(float y) {this.y = y;}
+	/**@param z new z value*/
+	public void setZ(float z) {this.z = z;}
 }

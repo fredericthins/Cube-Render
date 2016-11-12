@@ -65,7 +65,9 @@ public class Matrix {
 		float[][] set = new float[a.getNumRows()][b.getNumColumns()];
 		
 		if(a.getNumColumns() != b.getNumRows()) {
-			System.err.println("Order mismatch, cannot multiply");
+			System.err.println("Order mismatch, cannot multiply ("+
+								a.getNumRows()+", "+a.getNumColumns()+") with ("+
+								b.getNumRows()+", "+b.getNumColumns()+")");
 			return null;
 		}
 		
@@ -90,7 +92,7 @@ public class Matrix {
 	}
 	
 	/**
-	 * Converts this Matrix, if a sqaure, to a MatrixS
+	 * Converts this Matrix, if a square, to a MatrixS
 	 * 
 	 * @return this Matrix as a MatrixS
 	 */

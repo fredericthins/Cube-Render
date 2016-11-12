@@ -5,13 +5,14 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 
 import math.Matrix;
+import math.MatrixS;
 import math.Vector3;
 import model.Mesh;
 
 public class GameObject {
 
 	// GameObject attributes
-	Transform transform = new Transform();
+	public Transform transform = new Transform();
 	Mesh mesh;
 	Polygon[] polygons; 
 	Vector3[] normals;
@@ -34,7 +35,7 @@ public class GameObject {
 						vertices[2 + faceSet[i][j] * 3]);
 				pos = pos.rotate(this.transform.rotation);
 				pos = Vector3.Add(pos, this.transform.position);
-				pos = new Vector3(Matrix.multiply(c.CameraT(), pos.homogeneous()));
+				pos = new Vector3(Matrix.multiply(c.CameraT(),pos.homogeneous()));
 				pos = pos.scale(400);
 
 				xcoords[j] = (int) (400 + pos.getX());
@@ -59,12 +60,12 @@ public class GameObject {
 		
 		for (int i = 0; i < polygons.length; i++) {
 			dot = Vector3.Dot(normals[i], facing_direction);
-			if (dot < 0) {
+//			if (dot < 0) {
 				g.setColor(Color.WHITE);
 				g.fillPolygon(polygons[i]);
 				g.setColor(Color.BLACK);
 				g.drawPolygon(polygons[i]);
-			}
+//			}
 		}
 	}
 

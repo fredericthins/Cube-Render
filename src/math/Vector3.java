@@ -28,10 +28,10 @@ public class Vector3{
 	 * @param Matrix the Matrix of coordinates and scalar
 	 */
 	public Vector3(Matrix m){  						
-		float lastValue = m.getValue(0, 3);
+		float lastValue = m.getValue(3, 0);
 		this.x = m.getValue(0,0) / lastValue;
-		this.y = m.getValue(0,1) / lastValue;
-		this.z = m.getValue(0,2) / lastValue;
+		this.y = m.getValue(1,0) / lastValue;
+		this.z = m.getValue(2,0) / lastValue;
 	}
 	/* Creates a new 3D Vector given the coordinates
 	 * 
@@ -65,7 +65,7 @@ public class Vector3{
 	 * @return float that represents the magnitude of the vector
 	 */
 	public float getMagn(){
-		return (float) Math.sqrt(Math.pow(getX(),2) + Math.pow((getY()),2) + Math.pow(getZ(),2)); //Return the magnitude
+		return (float) Math.sqrt(x*x + y*y + z*z); //Return the magnitude
 	}
 	/* Returns a vector that is scaled by a value of scalar
 	 * 
@@ -74,24 +74,24 @@ public class Vector3{
 	 * @return the vector that is scaled by value scalar
 	 */
 	public Vector3 scale(float scalar){
-		this.setX(getX()*scalar); //Scaling the x component by value scalar
-		this.setY(getY()*scalar); //Scaling the y component by value scalar
-		this.setZ(getZ()*scalar); //Scaling the z component by value scalar
-		return this; //Return the Vector3 scaled to value scalar
+		float nx = getX()*scalar; //Scaling the x component by value scalar
+		float ny = getY()*scalar; //Scaling the y component by value scalar
+		float nz = getZ()*scalar; //Scaling the z component by value scalar
+		return new Vector3(nx,ny,nz); //Return the Vector3 scaled to value scalar
 	}
 	/*Return a nomarlized version of the current Vector3
 	 * 
 	 * @return normalized version of the current vector
 	 */
 	public Vector3 normalize(){	
-		return scale(1/Math.abs(getMagn()));
+		return scale(1/getMagn());
 	}
 	/*Return homogeneous version of the vector
 	 * 
 	 * @return homoVec the Matrix[1][4] that gives the coordinates of the vector and scalar
 	 */
 	public Matrix homogeneous(){					
-		float[][] tempMatrix = {{this.getX()},{this.getY()},{this.getZ()}}; //Creating a matrix with the coordinates of vector  
+		float[][] tempMatrix = {{this.getX()},{this.getY()},{this.getZ()},{1}}; //Creating a matrix with the coordinates of vector  
 		Matrix homoVec = new Matrix(tempMatrix);//Translate into a matrix
 		return homoVec;//Return the matrix
 	}

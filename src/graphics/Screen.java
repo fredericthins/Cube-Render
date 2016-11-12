@@ -7,15 +7,27 @@ import javax.swing.JComponent;
 import gameObject.Camera;
 import gameObject.Cube;
 import gameObject.GameObject;
+import math.Quaternion;
+import math.Vector3;
 
 public class Screen extends JComponent{
 	
 	GameObject[] objects;
 	Camera c;
 
+	//Temp things
+	Quaternion r;
+	
 	public Screen() {
 		c = new Camera();
-		objects = new GameObject[]{new Cube(5)};
+		c.transform.position = new Vector3(0,0,5);
+		
+		objects = new GameObject[]{new Cube(1)};
+//		objects[0].transform.rotation = Quaternion.fromTo(new Vector3(-1,-1,0), new Vector3(0,0,-1));
+		
+		r = Quaternion.fromTo(new Vector3(-1,-1,0), new Vector3(0,0,-1));
+		r.setW(r.getW()*0.01f);
+		System.out.println(r.toString());
 	}
 	
 	@Override
@@ -34,6 +46,7 @@ public class Screen extends JComponent{
 	 *  Update the screen
 	 */
 	public void update(){
+		objects[0].transform.rotation = Quaternion.Multiply(objects[0].transform.rotation, r);
 		repaint();
 	}
 }
