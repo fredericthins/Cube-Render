@@ -4,13 +4,14 @@ package math;
  * 		float x = x coordinate
  * 		float y = y coordinate
  * 		float z = z coordinate
- * 	Insta. Methods:
+ * 	Instance Methods:
  * 		clone()
  * 		toString()
  * 		getMagn()
  * 		scale(float)
  * 		normalize()
  * 		homogeneous()
+ * 		rotate()
  * 		Getters and Setters
  * 	Static Methods:
  * 		Add(Vector3, Vector3)

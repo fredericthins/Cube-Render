@@ -3,9 +3,10 @@ package model;
 import math.Vector3;
 
 public class Mesh {
-	float [] vertices;
-	int [][] faceSet;
-	Vector3 [] normal;
+	public float[] vertices;
+	public int[][] faceSet;
+	public Vector3[] normal;
+	
 	public void UpdateFaces(){
 		
 	}
