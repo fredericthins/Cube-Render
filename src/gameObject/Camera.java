@@ -74,7 +74,7 @@ public class Camera {
 	 * @return transformation matrix for the camera
 	 */
 	public MatrixS CameraT(){
-		return Matrix.multiply(this.rotCenterM(), this.displace()).toSquare();
-//		return Matrix.multiply(Matrix.multiply(this.perspectiveView(), this.rotCenterM()), this.displace()).toSquare();
+//		return Matrix.multiply(this.rotCenterM(), this.displace()).toSquare();
+		return Matrix.multiply(Matrix.multiply(this.perspectiveView(), this.rotCenterM()), this.displace()).toSquare();
 	}
 }

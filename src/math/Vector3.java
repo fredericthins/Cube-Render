@@ -104,7 +104,7 @@ public class Vector3{
 	public Vector3 rotate(Quaternion q4){
 		Quaternion q1 =  new Quaternion(0, this); //Quaternion representation of the current vector
 		Quaternion q2 = q4.norm(); //normalized version of quaternion q4
-		Quaternion q3 = new Quaternion(Matrix.multiply(q1.matRot(), q2.mat()));//Rotation of the vector by q4
+		Quaternion q3 = new Quaternion(Matrix.multiply(q2.matRot(), q1.mat()));//Rotation of the vector by q4
 		Vector3 tempV = new Vector3(q3.getX(),q3.getY(),q3.getZ()); //the resulting vector rotated
 		return tempV;//returns the vector rotated
 	}
