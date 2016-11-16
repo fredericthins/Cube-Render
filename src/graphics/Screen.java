@@ -26,7 +26,7 @@ public class Screen extends JComponent{
 //		objects[0].transform.rotation = Quaternion.fromTo(new Vector3(-1,-1,0), new Vector3(0,0,-1));
 		
 		r = Quaternion.fromTo(new Vector3(0,0,-1), new Vector3(-1,-1,0));
-		r.setW(r.getW()*0.01f);
+		r.setW(r.getW()*0.005f);
 		System.out.println(r.toString());
 	}
 	

@@ -7,28 +7,35 @@ import math.Vector3;
 
 public class Camera {
 	public Transform transform;
+	
+	//Camera transform values
 	private float znear = 1;
 	private float zfar = 100;
 	private float x = 0.4f;
 	private float y = 0.4f;
+	
+	//Ideal facing direction for projection onto x,y
 	private final Vector3 worldDir = new Vector3(0,0,-1);
 	
+	/**
+	 * Initializes a Camera object
+	 */
 	public Camera() {
 		transform = new Transform();
 		this.transform.forward = new Vector3(0,0,-1);
 	}
 	
 	/**
+	 * Calculates new forward direction to look at a new point
 	 * 
-	 * @param V new view point
+	 * @param p new view point
 	 */
-	public void lookAt(Vector3 V){
-		this.transform.forward = Vector3.Add(V, this.transform.position.scale(-1)).normalize();
+	public void lookAt(Vector3 p){
+		this.transform.forward = Vector3.Add(p, this.transform.position.scale(-1)).normalize();
 	}
 	
 	/**
-	 * 
-	 * @return rotated Quaternion
+	 * @return Quaternion to rotate towards the worldDir
 	 */
 	public Quaternion rotCenterQ(){
 		return Quaternion.fromTo(this.transform.forward, this.worldDir);
@@ -36,7 +43,6 @@ public class Camera {
 	}
 	
 	/**
-	 * 
 	 * @return perspective transformation matrix
 	 */
 	public MatrixS perspectiveView(){
@@ -49,7 +55,6 @@ public class Camera {
 	}
 	
 	/**
-	 * 
 	 * @return displacement matrix to move camera to origin
 	 */
 	public MatrixS displace(){
@@ -62,19 +67,25 @@ public class Camera {
 	}
 	
 	/**
-	 * 
-	 * @return rotated matrix
+	 * @return Rotation towards worldDir matrix
 	 */
 	public MatrixS rotCenterM(){
 		return this.rotCenterQ().matRot();
 	}
 	
 	/**
-	 * 
-	 * @return transformation matrix for the camera
+	 * @return vector3 post camera transformation
 	 */
-	public MatrixS CameraT(){
-//		return Matrix.multiply(this.rotCenterM(), this.displace()).toSquare();
-		return Matrix.multiply(Matrix.multiply(this.perspectiveView(), this.rotCenterM()), this.displace()).toSquare();
+	public Vector3 CameraT(Vector3 pos){
+		//Move with camera to center
+		Vector3 p = new Vector3(Matrix.multiply(this.displace(), pos.homogeneous()));
+		
+		//Rotate with camera to worldDir
+		p = p.rotate(this.rotCenterQ());
+		
+		//Apply perspective transformation
+		p = new Vector3(Matrix.multiply(this.perspectiveView(), p.homogeneous()));
+		
+		return p;
 	}
 }
