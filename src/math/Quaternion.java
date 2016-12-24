@@ -154,7 +154,8 @@ public class Quaternion {
 	 */
 	public static Quaternion fromTo(Vector3 vect1, Vector3 vect2){
 		double m = Math.sqrt(2f + 2f * Vector3.Dot(vect1, vect2));
-		return new Quaternion ((float)(0.5f * m), Vector3.cross(vect1,vect2).scale((float)(1f/m)));
+		return new Quaternion ((float)(0.5f * m), Vector3.cross(vect1,vect2)
+		.scale((float)(1f/m)));
 	}
 	
 	/**
