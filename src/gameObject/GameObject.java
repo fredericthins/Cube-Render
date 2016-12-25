@@ -1,6 +1,7 @@
 package gameObject;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
@@ -16,12 +17,14 @@ public class GameObject {
 	Polygon[] polygons; 		//Set of polygons for java to render (triangles only)
 	Vector3[] normals;
 	Vector3[] facecenters;
+	float[] dots;
 	
 	Vector3 facingdir;
 	
 	public void init() {
 		//Initialize normal and facing direction
 		this.normals = this.mesh.normal.clone();
+		dots = new float[this.normals.length];
 		facingdir = new Vector3(0,0,0);
 	}
 
@@ -108,10 +111,13 @@ public class GameObject {
 		
 		//Calculate normal
 		Vector3 nrm = this.mesh.normal[i].rotate(this.transform.rotation).rotate(c.rotCenterQ());
+//		Vector3 nrm = c.CameraT(this.mesh.normal[i].rotate(this.transform.rotation));
 		normals[i] = nrm.scale(50);
 		
 		//Return comparison of dot product to 0
-		return Vector3.Dot(nrm, facingdir) < 0;
+		float dot = Vector3.Dot(nrm, facingdir);
+		dots[i] = dot;
+		return dot < 0;
 	}
 
 	/**
@@ -145,6 +151,11 @@ public class GameObject {
 				g.fillOval(facex, facey, 10,10);
 				g.setColor(Color.RED);
 				g.fillOval(normalx, normaly, 10,10);
+				
+				//Draw dot on screen
+				g.setColor(Color.DARK_GRAY);
+				g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
+				g.drawString(""+dots[i], facex, facey);
 			}
 		}
 	}
